@@ -22,13 +22,22 @@ Le REVUE-BOT a été codé par Valentin DN. Le Projet est téléchargeable gratu
 SETUP:
 
 - Installer NodeJs
-- Installer les packages ( détailler cette étape )
+- Télécharger le dossier RevueBot à l'adresse suivante : https://github.com/vdnj/Revue-Bot
+- Dézipper le dossier
 - Assurez-vous d'être le propriétaire de l'opportunité.
 - Assurez-vous que votre opp. contient au moins un produit.
 - Assurez vous d'être déconnecté de SF et de KLIO.
 - Si vous vous connectez à distance, assurez-vous d'être connecté au Fortinet.
 - Gardez votre boite mail ouverte, afin de récupérer le code de vérification envoyé par SF.
 - Dans Code/setup.js, assurez-vous que vos infos sont à jour.
+
+    SOUS OSX / Linux:
+
+    - Ouvrir un terminal
+    - taper "cd " (l'espace est important)
+    - Faire un glisser déposer du dossier Revue-Bot dans le terminal
+    - Appuyez sur entrée
+    - taper npm install
 
 ---------------------
 
