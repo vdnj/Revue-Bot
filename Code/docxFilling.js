@@ -9,7 +9,7 @@ const Docxtemplater = require('docxtemplater');
 let templater = {
 
     generateRC: ()=> {
-        fsPromises.copyFile('./Modeles/Revue de contrat.docx', 'RC Remplie.docx')
+        fsPromises.copyFile('./Modeles/Revue de contrat.docx', './Docs Générés/RC Remplie.docx')
             .then(() => console.log(userStyle, 'Revue de Contrat générée'))
             .catch(() => console.log(userStyle, 'La Revue de Contrat n a pas été générée'));
     },
@@ -39,7 +39,7 @@ let templater = {
 
         //Load the docx file as a binary
         let content = fs
-            .readFileSync(path.resolve(__dirname, '../RC Remplie.docx'), 'binary');
+            .readFileSync(path.resolve(__dirname, '../Docs Générés/RC Remplie.docx'), 'binary');
         let zip = new PizZip(content);
         let doc;
         try {
@@ -141,7 +141,7 @@ let templater = {
                     .generate({type: 'nodebuffer'});
 
         // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-        fs.writeFileSync(path.resolve(__dirname, '../RC Remplie.docx'), buf);
+        fs.writeFileSync(path.resolve(__dirname, '../Docs Générés/RC Remplie.docx'), buf);
 
         console.log(userStyle, "Revue de Contrat remplie")
     },
@@ -196,7 +196,7 @@ let templater = {
 
     generateROF: (numOfRof)=>{
         for(let i = 1; i<=numOfRof; i++){
-            fsPromises.copyFile('./Modeles/Revue offre de prix fournisseur.docx', `ROF ${i} Remplie.docx`)
+            fsPromises.copyFile('./Modeles/Revue offre de prix fournisseur.docx', `./Docs Générés/ROF ${i} Remplie.docx`)
             .then(() => console.log(userStyle, `ROF n°${i} générée`))
             .catch(() => console.log(userStyle, 'La ROF n a pas été générée'));
         }
@@ -227,7 +227,7 @@ let templater = {
 
         //Load the docx file as a binary
         let content = fs
-            .readFileSync(path.resolve(__dirname, `../ROF ${currentRofNum} Remplie.docx`), 'binary');
+            .readFileSync(path.resolve(__dirname, `../Docs Générés/ROF ${currentRofNum} Remplie.docx`), 'binary');
         let zip = new PizZip(content);
         let doc;
         try {
@@ -364,7 +364,7 @@ let templater = {
                     .generate({type: 'nodebuffer'});
 
         // buf is a nodejs buffer, you can either write it to a file or do anything else with it.
-        fs.writeFileSync(path.resolve(__dirname, `../ROF ${currentRofNum} Remplie.docx`), buf);
+        fs.writeFileSync(path.resolve(__dirname, `../Docs Générés/ROF ${currentRofNum} Remplie.docx`), buf);
 
         console.log(userStyle, `ROF n°${currentRofNum} remplie`)
 

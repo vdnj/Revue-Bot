@@ -1,5 +1,5 @@
 const puppeteer = require('puppeteer');
-const cookies = require('./cookies.json');
+let cookies = require('./cookies.json');
 const fs = require('fs');
 const BASE_URL = 'https://na39.lightning.force.com/lightning/page/home';
 const DISC_URL = "https://na39.lightning.force.com/secur/logout.jsp";
@@ -126,6 +126,30 @@ let salesforce = {
         await salesforce.page.waitForSelector("#input-5");
         await salesforce.page.waitFor(500);
 
+        /* IMPLEMENTATION DU HEADLESS TRUE, DE LÀ */
+
+        let currentCookies = await salesforce.page.cookies();
+        fs.writeFileSync('./Code/cookies.json', JSON.stringify(currentCookies));
+        
+        await salesforce.browser.close();
+
+        salesforce.browser = await puppeteer.launch({
+            headless : true,
+            slowMo: 200,
+            defaultViewport: null,
+            args: ['--start-fullscreen']
+        });
+
+        cookies = require('./cookies.json');
+        salesforce.page = await salesforce.browser.newPage();
+        await salesforce.page.setDefaultTimeout(60000);
+        await salesforce.page.setCookie(...cookies);
+        await salesforce.page.goto(BASE_URL);
+        await salesforce.page.waitForSelector("#input-5");
+        await salesforce.page.waitFor(500);
+
+        /* À LÀ */
+
         console.log(userStyle, 'Connecté à SF');
 
     },
@@ -164,7 +188,7 @@ let salesforce = {
 
         while(!noRappel){
 
-            console.log(testStyle, 'Entering while loop');
+            await salesforce.page.waitFor(1000);
             let rappels = await salesforce.page.$$("button[title='Ignorer la notification’]");
             console.log(testStyle, 'looked for rappels. There are ' + rappels.length + ' elements.');
 
@@ -471,7 +495,7 @@ let salesforce = {
 
                 await salesforce.page.goto(product.url);
                 await salesforce.page.waitForSelector('a[title="Associé"]');
-                await salesforce.page.screenshot({path: `./${product.partNum}.png`});
+                await salesforce.page.screenshot({path: `./Docs Générés/${product.partNum}.png`});
                 console.log(userStyle, `Capture d'écran du produit ${product.partNum} faite.`)
 
             }
@@ -505,10 +529,6 @@ let salesforce = {
     },
 
     closeOpp: async (orderNum)=>{
-
-        await salesforce.page.evaluate(_ => {
-            window.scrollBy(0, 200);
-          });
 
         try{
             await salesforce.page.click('a[title="Modifier"]');

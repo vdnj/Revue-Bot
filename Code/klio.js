@@ -1,6 +1,6 @@
 const puppeteer = require('puppeteer');
-const BASE_URL = 'http://192.168.2.252/?DataSource=KLIO_DIPOSTEL&ConfigFile=d:/klio/DIPOSTEL/config/klio.ini';
 const userStyle = '\x1b[36m%s\x1b[0m';
+const BASE_URL = 'http://192.168.2.252/?DataSource=KLIO_DIPOSTEL&ConfigFile=d:/klio/DIPOSTEL/config/klio.ini';
 const testStyle = '\x1b[32m%s\x1b[0m';
 
 let klio = {
@@ -14,7 +14,7 @@ let klio = {
     initialize: async () => {
 
         klio.browser = await puppeteer.launch({
-            headless : false,
+            headless : true,
             slowMo: 200,
             defaultViewport: null,
             args: ['--start-fullscreen']

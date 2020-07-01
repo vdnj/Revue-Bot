@@ -25,9 +25,9 @@ let fs = require('fs'); // for tests
     
     console.log(userStyle, '\n----- PARTIE 1/4 : COLLECTE DE DONNEES SUR SF -----\n')
     try{
-        await sf.initialize();
-        await sf.login(userDatas.sfId, userDatas.sfPass);
-        //await sf.testStart(userDatas.sfId, userDatas.sfPass);
+        //await sf.initialize();
+        //await sf.login(userDatas.sfId, userDatas.sfPass);
+        await sf.testStart(userDatas.sfId, userDatas.sfPass);
         await sf.openOpp(oppNum);
         await sf.getCustomer();
         await sf.custIsNew();
@@ -37,6 +37,7 @@ let fs = require('fs'); // for tests
     } catch(e) {
         console.log(userStyle, "Un soucis empêche l'éxectution du script.\nDéconnexion de SF");
         console.log(testStyle, e);
+        process.exit(0);
         //await sf.disconnect(); Remettre quand bot OP
     }
     
@@ -80,6 +81,7 @@ let fs = require('fs'); // for tests
     }
     
 
+    fs.writeFileSync('./datas.json', JSON.stringify(datas));
     /* 4th PART - RC & ROF */
     
     // RC
@@ -131,63 +133,33 @@ let fs = require('fs'); // for tests
     }
     setTimeout(exit, 20000);
     
+    
 })();
+
+
 
 /* ---------------------------------- TEST ZONE ---------------------------------- */
 // Pour utiliser le async test, enlever les () à la fin du 1er async et les mettre sur celui-ci.
 
+/* TEST DE PASSER EN HEADLESS PENDANT LE SCRIPT */
 (async () => {
 
-    let datas21331 = require('./datas.json');
-    let datas21736 = require('./datas-21736.json');
+    let oppNum = await sf.promptOpp();
+    await sf.testStart(userDatas.sfId, userDatas.sfPass);
+    await sf.openOpp(oppNum);
 
-    /* 4th PART - RC & ROF */
-    
-    // RC
-    console.log(userStyle, '\n----- PARTIE 4/4 : GENERATION ET REMPLISSAGE RC et ROF(s) -----\n')
-    templater.generateRC();
-    let fillRC = () =>{    // SetTimout a besoin d'une callback pour être executé
-        return templater.fillRC(datas21736);
-    }
-    setTimeout(fillRC,2000);
-
-    //ROF
-    let getRofInfo = () =>{
-        datas = templater.getRofInfo(datas21736);
-        return datas;
-    }
-    setTimeout(getRofInfo,4000);
-
-    let generateROF = () =>{
-        return templater.generateROF(datas21736.rofQty);
-    }
-    setTimeout(generateROF,6000);
-
-    let logEnd = () =>{
-        console.log(userStyle, '\nTravail terminé avec succès.');
-    }
-
-    let currentTimer = 8000;
-
-    let fillRofAndEnd = () =>{
-        for(let i=1; i<=datas.rofQty; i++){
-            let fillRof = ()=>{
-                return templater.fillRof(datas21736, i);
-            }
-            setTimeout(fillRof, currentTimer);
-            if(i===datas21736.rofQty){
-                setTimeout(logEnd, (currentTimer+1000));
-            }
-            currentTimer = currentTimer + 2000;
-        }
+    /* 3rdth PART - RC & ROF */
+    try{
+        console.log(userStyle, 'Retour sur SF')
+        await sf.removeTaches();
+        await sf.closeRappels();
+        await sf.closeOpp(' ');
+        //await sf.disconnect(); Remettre quand bot OP
+    } catch(e) {
+        console.log(userStyle, "Un soucis empêche l'éxectution du script.\nDéconnexion de SF");
+        console.log(testStyle, e);
+        //await sf.disconnect(); Remettre quand bot OP
     }
     
-    setTimeout(fillRofAndEnd, currentTimer);
-    
-    // Fermeture des browsers et fin du script
-    let exit = () =>{
-        return process.exit(0);
-    }
-    setTimeout(exit, 20000);
     
 });
