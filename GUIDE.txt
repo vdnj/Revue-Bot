@@ -33,9 +33,16 @@ FIRST TIME SETUP:
     - taper "cd " (l'espace est important)
     - Faire un glisser déposer du dossier Revue-Bot dans le terminal
     - Appuyez sur entrée
-    - taper npm install
+    - installez les dependencies
 
-- Dans le sous-dossier "Code", renommez le fichier setup.js en setup.txt. Ajoutez-y les infos demandées entre les guillemets.
+    SOUS WINDOWS :
+
+    - Le système est le même avec Powershell
+    - Il est possible de crééer un exécutable (Installation à faire par Val)
+
+- Dans le sous-dossier "Code", renommez le fichier setup.js en setup.txt.
+- Ajoutez-y les infos demandées entre les guillemets.
+- Reconvertissez le en .js
 
 ---------------------
 

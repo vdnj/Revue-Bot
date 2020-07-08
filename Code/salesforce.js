@@ -137,7 +137,7 @@ let salesforce = {
             headless : true,
             slowMo: 200,
             defaultViewport: null,
-            args: ['--start-fullscreen']
+            args: ['--window-size=1920,1040']
         });
 
         cookies = require('./cookies.json');

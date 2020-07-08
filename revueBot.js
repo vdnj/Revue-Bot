@@ -25,9 +25,9 @@ let fs = require('fs'); // for tests
     
     console.log(userStyle, '\n----- PARTIE 1/4 : COLLECTE DE DONNEES SUR SF -----\n')
     try{
-        //await sf.initialize();
-        //await sf.login(userDatas.sfId, userDatas.sfPass);
-        await sf.testStart(userDatas.sfId, userDatas.sfPass);
+        await sf.initialize();
+        await sf.login(userDatas.sfId, userDatas.sfPass);
+        //await sf.testStart(userDatas.sfId, userDatas.sfPass);
         await sf.openOpp(oppNum);
         await sf.getCustomer();
         await sf.custIsNew();
