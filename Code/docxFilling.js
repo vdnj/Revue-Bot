@@ -113,8 +113,10 @@ let templater = {
             return product.stockUnit;
         });
         for (let i=0; i< partNums.length; i++){
-            if(stockQties[i]>0){
+            if(stockQties[i]>0 || stockQties[i]<0 ){
                 stock += ` Il y a ${stockQties[i]} ${stockUnits[i]}(s) en stock pour l'article ${partNums[i]}.\n`
+            } else {
+                stock += ` Il n'y a pas de stock pour l'article ${partNums[i]}.\n`
             }
         }
 

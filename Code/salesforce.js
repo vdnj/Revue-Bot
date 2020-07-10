@@ -56,7 +56,7 @@ let salesforce = {
 
         salesforce.browser = await puppeteer.launch({
             headless : false,
-            slowMo: 200,
+            slowMo: 50,
             defaultViewport: null,
             args: ['--start-fullscreen']
         })
@@ -99,7 +99,7 @@ let salesforce = {
 
         salesforce.browser = await puppeteer.launch({
             headless : false,
-            slowMo: 200,
+            slowMo: 50,
             defaultViewport: null,
             args: ['--start-fullscreen']
         });
@@ -135,7 +135,7 @@ let salesforce = {
 
         salesforce.browser = await puppeteer.launch({
             headless : true,
-            slowMo: 200,
+            slowMo: 50,
             defaultViewport: null,
             args: ['--window-size=1920,1040']
         });
